@@ -1,12 +1,12 @@
 // setup : read + convertions + welcome 
 const fs = require('fs');
+const fileName = process.argv[2];
 
-try {
-  const data = fs.readFileSync('list.txt', 'utf8').split(" ");
-  let result = data.map(i=>Number(i));
-  console.log("Bienvenue voici les réponses aux questions selon l'array :")
-  console.log(result)
-  console.log("")
+const data = fs.readFileSync(fileName, 'utf8').split(" ");
+let result = data.map(i=>Number(i));
+console.log("Vous avez choisi la array :")
+console.log(result)
+console.log("")
 
 
 // bubble sort 
@@ -95,7 +95,7 @@ console.log(`Tri à sélection: ${selectionComparisonCount} comparaisons - [${se
 // *****************************************//
 console.log('******************************************')
 
-// selection sort
+// quick sort
 selection = result
 let count = 0;
 selection.sort(function(a, b) {
@@ -104,7 +104,36 @@ selection.sort(function(a, b) {
 });
 console.log(`Tri rapide: ${count} comparaisons -[${selection}]`)
 
+// *****************************************//
+console.log('******************************************')
 
-} catch (error) {
-  console.error(error.message);
+// merge sort
+function mergeSortTopDown(arr) {
+  if(arr.length <= 1) {
+    return arr
+  }
+
+  const middle = Math.floor(arr.length / 2);
+  const left = arr.slice(0, middle)
+  const right = arr.slice(middle)
+
+  return mergeTopDown(mergeSortTopDown(left), mergeSortTopDown(right));
 }
+
+function mergeTopDown(left, right) {
+  const arr = [];
+
+  while(left.length && right.length) {
+    if(left[0] < right[0]) {
+      arr.push(left.shift())
+    } else {
+      arr.push(right.shift())
+    }
+    
+  }
+  return arr.concat(left.slice()).concat(right.slice());
+}
+
+console.log(mergeSortTopDown(result))
+
+console.log(result)
