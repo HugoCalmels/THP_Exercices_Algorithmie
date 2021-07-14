@@ -2,7 +2,7 @@ const fs = require('fs');
 const fileName = process.argv[2];
 const data = fs.readFileSync(fileName, 'utf8');
 result = JSON.parse(data)
-console.log("Bienvenue voici les réponses aux questions selon l'array :")
+console.log("Voici les réponses aux questions selon la array :")
 console.log(result);
 console.log("")
 
@@ -10,6 +10,7 @@ console.log("")
 let k = 17;
  
 // Exercice 1
+let firstTryResult = result.slice();
 function printPairs(arr, sum)  {
   let s = new Set();
 
@@ -17,17 +18,17 @@ function printPairs(arr, sum)  {
     let temp = sum - arr[i];
   
     if (s.has(temp)) {
-         console.log("J'ai trouvé une paire avec " + sum + ", : (" + arr[i] + ", " + temp + ")");
+         console.log("J'ai trouvé une paire avec " + sum + ", : (" + temp + "," + arr[i] + ")");
     }  
       s.add(arr[i]);
   } 
 }
 //result
-printPairs(result, k);
+printPairs(firstTryResult, k);
 
 // autre methodes
 //////
-
+let secondTryResult = result.slice();
 function twoSum(arr, n) {
   const sum = [];
    for(let i = 0; i< arr.length; i++) {
@@ -38,6 +39,6 @@ function twoSum(arr, n) {
   
   return sum
  }
-twoSum(result, k)
+twoSum(secondTryResult, k)
 //result
-console.log("J'ai trouvé une paire avec " + k + ", : (" + twoSum(result, k) + ")" )
+console.log("J'ai trouvé une paire avec " + k + ", : (" + twoSum(secondTryResult, k) + ")" )

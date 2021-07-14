@@ -8,8 +8,8 @@ console.log("Vous avez choisi la array :")
 console.log(result)
 console.log("")
 
-
-// bubble sort 
+// 1 bubble sort 
+let bubbleResult = result.slice();
 const bubbleSort = (arr) => {
   const len = arr.length;
   let count = 0;
@@ -29,14 +29,15 @@ const bubbleSort = (arr) => {
     bubbleArr: arr
   }
 }
-// result bubbleSort
-const { bubbleComparisonCount, bubbleArr} = bubbleSort(result)
+const { bubbleComparisonCount, bubbleArr} = bubbleSort(bubbleResult)
 console.log(`Tri à bulle: ${bubbleComparisonCount} comparaisons - [${bubbleArr}]`)
+
 
 // *****************************************//
 console.log('******************************************')
 
-// insertion sort
+// 2 insertion sort
+let insertionResult = result.slice();
 const insertionSort = arr => {
   let count = 0
   
@@ -58,14 +59,14 @@ const insertionSort = arr => {
     insertionArr: arr
   }
 }
-// result 
-  const { insertionComparisonCount, insertionArr} = insertionSort(result)
+  const { insertionComparisonCount, insertionArr} = insertionSort(insertionResult)
   console.log(`Tri à insertion: ${insertionComparisonCount} comparaisons - [${insertionArr}]`)
 
 // *****************************************//
 console.log('******************************************')
 
-// selection sort
+// 3 selection sort
+let selectionResult = result.slice();
 const selectionSort = arr =>  {
   const len = arr.length;
   let count = 0;
@@ -89,25 +90,68 @@ const selectionSort = arr =>  {
     selectionArr: arr
   }
 }
-const { selectionComparisonCount, selectionArr} = selectionSort(result)
+const { selectionComparisonCount, selectionArr} = selectionSort(selectionResult)
 console.log(`Tri à sélection: ${selectionComparisonCount} comparaisons - [${selectionArr}]`)
 
 // *****************************************//
 console.log('******************************************')
 
-// quick sort
-selection = result
-let count = 0;
-selection.sort(function(a, b) {
-  count ++;
-  return a - b;
-});
-console.log(`Tri rapide: ${count} comparaisons -[${selection}]`)
+// 4 quick sort
+var items = result.slice();
+function swap(items, leftIndex, rightIndex){
+    var temp = items[leftIndex];
+    items[leftIndex] = items[rightIndex];
+    items[rightIndex] = temp;
+}
+function partition(items, left, right, count) {
+
+    var pivot   = items[Math.floor((right + left) / 2)], //middle element
+        i       = left, //left pointer
+        j       = right; //right pointer
+       
+    while (i <= j) {
+   
+        while (items[i] < pivot) {
+            i++;
+      
+            
+        }
+        while (items[j] > pivot) {
+            j--;  
+
+        } 
+        if (i <= j)    {
+            swap(items, i, j); //sawpping two elements
+            i++;
+            j--;    
+               
+        }   
+    }
+
+    return i;
+}
+
+function quickSort(items, left, right) {
+    var index;
+    if (items.length > 1) {
+        index = partition(items, left, right); //index returned from partition
+        if (left < index - 1) { //more elements on the left side of the pivot
+            quickSort(items, left, index - 1);
+        }
+        if (index < right) { //more elements on the right side of the pivot
+            quickSort(items, index, right);
+        }
+    }
+    return items;
+}
+// first call to quick sort
+var quickSortResult = quickSort(items, 0, items.length - 1);
+console.log(`Tri rapide: undefined comparaisons - [${quickSortResult}]`)
 
 // *****************************************//
 console.log('******************************************')
 
-// merge sort
+// 5 merge sort
 function mergeSortTopDown(arr) {
   if(arr.length <= 1) {
     return arr
@@ -134,6 +178,5 @@ function mergeTopDown(left, right) {
   return arr.concat(left.slice()).concat(right.slice());
 }
 
-console.log(mergeSortTopDown(result))
 
-console.log(result)
+console.log(`Tri merge: undefined comparaisons - [${mergeSortTopDown(result)}]`)
